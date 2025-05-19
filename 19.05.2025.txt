@@ -1,0 +1,95 @@
+show databases;
+use vit;
+show tables;
+desc vit_vellore;
+alter table vit_vellore drop column s_country;
+CREATE TABLE vit_ap (
+    full_name VARCHAR(100),
+    reg_no VARCHAR(20),
+    school VARCHAR(100),
+    graduation_year INT
+);
+INSERT INTO vit_ap (full_name, reg_no, school, graduation_year) VALUES
+('Ananya Reddy', '21BCE1001', 'School of Computer Science and Engineering', 2025),
+('Ravi Teja', '21ECE1002', 'School of Electronics Engineering', 2025),
+('Sneha Kumari', '21MEC1003', 'School of Mechanical Engineering', 2025),
+('Karthik Rao', '21CIV1004', 'School of Civil Engineering', 2025),
+('Meena Iyer', '21EEE1005', 'School of Electrical Engineering', 2025),
+('Siddharth Jain', '21BCE1006', 'School of Computer Science and Engineering', 2025),
+('Pooja Sharma', '21ECE1007', 'School of Electronics Engineering', 2025),
+('Arjun Das', '21MEC1008', 'School of Mechanical Engineering', 2025),
+('Divya Patel', '21CIV1009', 'School of Civil Engineering', 2025),
+('Rahul Verma', '21EEE1010', 'School of Electrical Engineering', 2025);
+CREATE TABLE vit_bhopal (
+    full_name VARCHAR(100),
+    reg_no VARCHAR(20),
+    school VARCHAR(100),
+    graduation_year INT
+);
+INSERT INTO vit_bhopal (full_name, reg_no, school, graduation_year) VALUES
+('Aarti Mehra', '21BCE1101', 'School of Computer Science and Engineering', 2025),
+('Manish Kumar', '21ECE1102', 'School of Electronics Engineering', 2025),
+('Neha Gupta', '21MEC1103', 'School of Mechanical Engineering', 2025),
+('Vikram Singh', '21CIV1104', 'School of Civil Engineering', 2025),
+('Tanvi Nair', '21EEE1105', 'School of Electrical Engineering', 2025),
+('Abhinav Joshi', '21BCE1106', 'School of Computer Science and Engineering', 2025),
+('Ritika Roy', '21ECE1107', 'School of Electronics Engineering', 2025),
+('Karan Thakur', '21MEC1108', 'School of Mechanical Engineering', 2025),
+('Priya Yadav', '21CIV1109', 'School of Civil Engineering', 2025),
+('Aman Kapoor', '21EEE1110', 'School of Electrical Engineering', 2025);
+select * from vit_vellore;
+select * from vit_ap;
+select * from vit_bhopal;
+CREATE TABLE Worker1 (
+	WORKER_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	FIRST_NAME CHAR(25),
+	LAST_NAME CHAR(25),
+	SALARY INT,
+	JOINING_DATE DATETIME,
+	DEPARTMENT CHAR(25)
+);
+INSERT INTO Worker1(WORKER_ID, FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT) VALUES
+		(001, 'Monika', 'Arora', 100000, '14-02-20 09.00.00', 'HR'),
+		(002, 'Niharika', 'Verma', 80000, '14-06-11 09.00.00', 'Admin'),
+		(003, 'Vishal', 'Singhal', 300000, '14-02-20 09.00.00', 'HR'),
+		(004, 'Amitabh', 'Singh', 500000, '14-02-20 09.00.00', 'Admin'),
+		(005, 'Vivek', 'Bhati', 500000, '14-06-11 09.00.00', 'Admin'),
+		(006, 'Vipul', 'Diwan', 200000, '14-06-11 09.00.00', 'Account'),
+		(007, 'Satish', 'Kumar', 75000, '14-01-20 09.00.00', 'Account'),
+        (008, 'Geetika', 'Chauhan', 90000, '14-04-11 09.00.00', 'Admin');
+
+select * from worker1;
+delete from worker1 where department='Account';
+drop table worker;
+delete from vit_bhopal where full_name='Aarti Mehra';
+truncate table worker1;
+select * from worker1 where salary>75000;
+select first_name from worker1 where department='HR' and salary>=10000;
+SELECT first_name,department FROM Worker1 WHERE SALARY > 200000 AND DEPARTMENt ='HR';
+SELECT * FROM Worker1 WHERE SALARY < 200000 AND DEPARTMENT ='HR' OR DEPARTMENT = 'Admin';
+select * from worker1 where salary>100000 and salary<300000 and (department='Admin' or department='Account');
+select * from worker1 where department not in ('HR','Admin');
+#evennoofid, max salary, admin or hr department
+SELECT * FROM worker1 WHERE MOD(worker_id, 2) = 0 AND department IN ('Admin', 'HR') AND salary = (SELECT MAX(salary) FROM worker1 WHERE MOD(worker_id, 2) = 0 AND department IN ('Admin', 'HR'));
+
+
+create database vitvellore;
+use vitvellore;
+create table cse(id int, name varchar(40));
+start transaction;
+insert into cse values(101, 'Arnav');
+savepoint a11;
+insert into cse values(102, 'Nikita');
+savepoint a12;
+delete from cse where id=101;
+select * from cse;
+rollback to a12;
+delete from cse;
+insert into cse values(103, 'Nikhil');
+savepoint a13;
+insert into cse values(104, 'Smriti');
+savepoint a14;
+delete from cse where id=103;
+select * from cse;
+rollback to a14;
+commit;

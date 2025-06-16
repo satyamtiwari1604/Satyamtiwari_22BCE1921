@@ -1,0 +1,27 @@
+show databases;
+create database vit;
+use vit;
+CREATE TABLE vit_vellore (
+    full_name VARCHAR(100),
+    reg_no VARCHAR(20) PRIMARY KEY,
+    school VARCHAR(100),
+    graduation_year INT
+);
+INSERT INTO vit_vellore (full_name, reg_no, school, graduation_year) VALUES
+('Ananya Sharma', '21BCE1001', 'School of Computer Science', 2025),
+('Rohan Mehta', '21EEE1002', 'School of Electrical Engineering', 2025),
+('Sneha Reddy', '21MEC1003', 'School of Mechanical Engineering', 2025),
+('Aditya Verma', '20BCE1004', 'School of Computer Science', 2024);
+INSERT INTO vit_vellore (full_name, reg_no, school, graduation_year) VALUES
+('Priya Nair', '21CSE1005', 'School of Computer Science', 2025),
+('Karthik Iyer', '21ECE1006', 'School of Electronics Engineering', 2025),
+('Megha Rao', '20BBA1007', 'School of Business', 2024),
+('Arjun Das', '22CIV1008', 'School of Civil Engineering', 2026),
+('Divya Kapoor', '21BIO1009', 'School of Bio Sciences', 2025);
+select * from vit_vellore;
+alter table vit_vellore add(phone varchar(10));
+desc vit_vellore;
+alter table vit_vellore drop column phone;
+alter table vit_vellore add(s_country varchar(10) default 'India');
+update vit_vellore set full_name='Nikita Anandmani' WHERE full_name='Megha Rao';
+

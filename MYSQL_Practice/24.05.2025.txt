@@ -1,0 +1,98 @@
+package connection;
+import java.sql.*;
+
+public class DBconnection {
+
+	public static void main(String[] args) {
+		// JDBC
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/vit","root","Nikita1234@");
+			System.out.println(con);
+			Statement stmt=con.createStatement();
+			ResultSet rs=stmt.executeQuery("select * from student");
+			while(rs.next())
+				System.out.println(rs.getInt(1)+" "+rs.getString(2));
+			con.close();
+		}
+		catch(Exception e){
+			System.out.println("Sorry for inconveinience, please check the credentials");
+			e.printStackTrace();
+		}
+		
+
+	}
+
+}
+
+
+
+
+
+
+
+
+package crud_operation;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DB_connection {
+
+	public static void main(String[] args) {
+		DB_connection obj_DB_Connection=new DB_connection();
+		System.out.println(obj_DB_Connection.get_connection());
+		
+
+	}
+	public Connection get_connection(){
+		Connection connection = null;
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection= DriverManager.getConnection("jdbc:mysql://localhost:3306/vit","root","Nikita1234@");
+			
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+		return connection;
+	}
+
+}
+
+
+
+
+package crud_operation;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+public class CRUD_operation {
+
+	public static void main(String[] args) {
+		CRUD_operation objTest=new CRUD_operation();
+  
+	objTest.create_data(103, "manoj");
+	objTest.create_data(104, "karthick");
+    
+}
+
+public void create_data(int sl_no,String name){
+	DB_connection obj_DB_Connection=new DB_connection();
+	Connection connection=obj_DB_Connection.get_connection();
+	PreparedStatement ps=null;
+	try {
+		String query="insert into student values (?,?)";
+		ps=connection.prepareStatement(query);
+		ps.setInt(1, sl_no);
+		ps.setString(2, name);
+		System.out.println(ps);
+		ps.executeUpdate();
+	} catch (Exception e) {
+		System.out.println(e);
+	}
+}
+
+}
+

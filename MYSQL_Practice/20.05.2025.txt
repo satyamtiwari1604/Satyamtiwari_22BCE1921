@@ -1,0 +1,75 @@
+create database school;
+use school;
+CREATE TABLE Students (
+    student_id INT PRIMARY KEY,
+    name VARCHAR(100)
+);
+CREATE TABLE Library_Issues (
+    issue_id INT PRIMARY KEY,
+    student_id INT,
+    book_title VARCHAR(100),
+    FOREIGN KEY (student_id) REFERENCES Students(student_id)
+);
+INSERT INTO Students (student_id, name) VALUES
+(101, 'Rahul'),
+(102, 'Nikita'),
+(103, 'Ayesha');
+INSERT INTO Library_Issues (issue_id, student_id, book_title) VALUES
+(1, 101, 'C Programming'),
+(2, 102, 'Data Structures'),
+(3, 101, 'Discrete Math');
+INSERT INTO Library_issues values
+(4, 105, 'Ethics and Values');
+
+create database store;
+use store;
+create table category( c_id int primary key, c_name varchar(40), c_details varchar(25));
+insert into category values(101, 'electronics','abcdefgh');
+insert into category values(102, 'furnitures','abcdefggsdfgdsbdsh');
+select * from category;
+drop table products;
+create table products(
+p_id int primary key,
+p_name varchar(25),
+p_details varchar(35),
+c_id int,
+foreign key products(c_id) references category(c_id)
+);
+delete from category where c_id=101;
+drop table category;
+INSERT INTO products VALUES
+(1, 'TV', 'Smart LED 42 inch', 101),
+(2, 'TV', 'Smart LED 42 inch', 101),         
+(3, 'Sofa', 'Leather 3-seater recliner', 102);
+select * from products;
+delete from category where c_id=101;
+update products set c_id=103 where c_id=101;
+update category set c_id=104 where c_id=101;
+
+create table cust_details(
+first_name varchar(40) not null,
+middle_name varchar(40) not null,
+last_name varchar(40) not null,
+c_id int unique,
+c_country varchar(35) default 'India');
+insert into cust_details(first_name, middle_name, last_name, c_id) values('Shalu',' ','Kumari',101);
+select * from cust_details;
+alter table cust_details add primary key(c_id);
+show create table cust_details;
+alter table cust_details drop primary key;
+alter table cust_details drop index c_id;
+SHOW INDEX FROM cust_details;
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    order_date DATE,
+    c_id INT,
+    FOREIGN KEY (c_id)
+        REFERENCES cust_details(c_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+drop table orders;
+
+
+
+
